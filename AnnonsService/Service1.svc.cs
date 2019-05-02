@@ -32,6 +32,32 @@ namespace AnnonsService
             
         }
 
+        public List<Annonser> HamtaSaljAnnonser(int profilID)
+        {
+            using (AnnonsModel db = new AnnonsModel())
+            {
+                List<Annonser> returAnnonser = new List<Annonser>();
+                foreach (Annonser annons in db.Annonser)
+                {
+                    if (annons.profilID == profilID)
+                    {
+                        returAnnonser.Add(annons);
+                    }
+                }
+                return returAnnonser;
+            }
+        }
+
+        public Annonser HamtaAnnons(int annonsID)
+        {
+            using (AnnonsModel db = new AnnonsModel())
+            {
+                return db.Annonser.Find(annonsID);
+            }
+        }
+
+
+
         public string GetData(int value)
         {
             return string.Format("You entered: {0}", value);

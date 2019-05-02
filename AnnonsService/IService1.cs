@@ -28,9 +28,12 @@ namespace AnnonsService
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
-
-
+        [OperationContract]
+        List<Annonser> HamtaSaljAnnonser(int profilID);
         // TODO: Add your service operations here
+
+        [OperationContract]
+        Annonser HamtaAnnons(int annonsID);
     }
 
 
