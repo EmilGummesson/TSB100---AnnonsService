@@ -12,6 +12,26 @@ namespace AnnonsService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
+
+        public List<Annonser> HamtaAllaAnnonser()
+        {
+            using (AnnonsModel db = new AnnonsModel())
+            {
+                return db.Annonser.ToList();
+            }
+        }
+
+        public string SkapaAnnons(Annonser annons)
+        {
+            using (AnnonsModel db = new AnnonsModel())
+            {
+                db.Annonser.Add(annons);
+                db.SaveChanges();
+                return ("Allt är bra! Tack!");
+            }
+            
+        }
+
         public string GetData(int value)
         {
             return string.Format("You entered: {0}", value);

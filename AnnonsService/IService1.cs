@@ -17,6 +17,12 @@ namespace AnnonsService
         string GetData(int value);
 
         [OperationContract]
+        List<Annonser> HamtaAllaAnnonser();
+
+        [OperationContract]
+        string SkapaAnnons(Annonser annons);
+
+        [OperationContract]
         string Test();
 
         [OperationContract]
