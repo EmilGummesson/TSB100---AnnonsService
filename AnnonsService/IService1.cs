@@ -37,6 +37,9 @@ namespace AnnonsService
 
         [OperationContract]
         Annonser HamtaAnnons(int annonsID);
+
+        [OperationContract]
+        void Delete(int annonsID);
     }
 
 

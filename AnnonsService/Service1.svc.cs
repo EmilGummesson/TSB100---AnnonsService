@@ -32,6 +32,15 @@ namespace AnnonsService
             
         }
 
+        public void Delete(int annonsID)
+        {
+            using (AnnonsModel db = new AnnonsModel())
+            {
+                
+                db.Annonser.Remove(db.Annonser.Find(annonsID));
+                db.SaveChanges();
+            }
+         }
         public List<Annonser> HamtaSaljAnnonser(int profilID)
         {
             using (AnnonsModel db = new AnnonsModel())
