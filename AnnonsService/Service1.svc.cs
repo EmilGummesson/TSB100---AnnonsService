@@ -87,5 +87,27 @@ namespace AnnonsService
             }
             return composite;
         }
+
+        public string UppdateraAnnons(Annonser annons)
+        {
+            using (AnnonsModel db = new AnnonsModel())
+            {
+                var result = db.Annonser.Find(annons.annonsID);
+                if (result != null)
+                {
+                    //result = annons;
+                    db.Entry(result).CurrentValues.SetValues(annons);
+                    db.SaveChanges();
+                    return ("Annons uppdaterad!");
+
+                }
+                else
+                    return ("Uppdatering misslyckades");
+
+            }
+
+
+            //return "ASP-FISK";
+        }
     }
 }

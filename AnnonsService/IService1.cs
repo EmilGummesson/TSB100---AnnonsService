@@ -33,6 +33,9 @@ namespace AnnonsService
         // TODO: Add your service operations here
 
         [OperationContract]
+        string UppdateraAnnons(Annonser annons);
+
+        [OperationContract]
         Annonser HamtaAnnons(int annonsID);
     }
 
