@@ -17,6 +17,7 @@ namespace AnnonsService
         {
             using (AnnonsModel db = new AnnonsModel())
             {
+                
                 return db.Annonser.ToList();
             }
         }
@@ -25,6 +26,9 @@ namespace AnnonsService
         {
             using (AnnonsModel db = new AnnonsModel())
             {
+                System.Diagnostics.Trace.Write(annons.annonsNamn);
+                // You must close or flush the trace to empty the output buffer. 
+                System.Diagnostics.Trace.Flush();
                 db.Annonser.Add(annons);
                 db.SaveChanges();
                 return ("Allt är bra! Tack!");
@@ -39,7 +43,7 @@ namespace AnnonsService
                 List<Annonser> returAnnonser = new List<Annonser>();
                 foreach (Annonser annons in db.Annonser)
                 {
-                    if (annons.profilID == profilID)
+                    if (annons.saljarID == profilID)
                     {
                         returAnnonser.Add(annons);
                     }
@@ -57,11 +61,6 @@ namespace AnnonsService
         }
 
 
-
-        public string GetData(int value)
-        {
-            return string.Format("You entered: {0}", value);
-        }
 
         public string Test()
         {

@@ -12,7 +12,7 @@ namespace AnnonsService
         [Key]
         public int annonsID { get; set; }
 
-        public int profilID { get; set; }
+        public int saljarID { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -39,5 +39,15 @@ namespace AnnonsService
         public string betalningsmetod { get; set; }
 
         public string bild { get; set; }
+
+        public string koparID { get; set; }
+
+        [Required]
+        public string ort { get; set; }
+
+        [Required]
+        public string adress { get; set; }
+
+        public int postNr { get; set; }
     }
 }

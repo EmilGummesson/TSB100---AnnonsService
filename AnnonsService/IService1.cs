@@ -14,9 +14,6 @@ namespace AnnonsService
     {
 
         [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
         List<Annonser> HamtaAllaAnnonser();
 
         [OperationContract]
