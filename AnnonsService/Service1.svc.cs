@@ -12,15 +12,14 @@ namespace AnnonsService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-
-        public List<Annonser> HamtaKopAnnonser(int profilID)
+        public List<Annonser> HamtaAllaAnnonser()
         {
             using (AnnonsModel db = new AnnonsModel())
             {
                 List<Annonser> returAnnonser = new List<Annonser>();
                 foreach (Annonser annons in db.Annonser)
                 {
-                    if (annons.koparID == profilID && annons.status != "Arkiverad")
+                    if (annons.status != "Arkiverad")
                     {
                         returAnnonser.Add(annons);
                     }
