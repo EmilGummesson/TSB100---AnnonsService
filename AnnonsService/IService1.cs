@@ -30,6 +30,12 @@ namespace AnnonsService
         // TODO: Add your service operations here
 
         [OperationContract]
+        List<Annonser> HamtaKopAnnonser(int profilID);
+
+        [OperationContract]
+        List<Annonser> HamtaAdminAnnonser(int profilID);
+        
+        [OperationContract]
         string UppdateraAnnons(Annonser annons);
 
         [OperationContract]

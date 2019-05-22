@@ -13,12 +13,19 @@ namespace AnnonsService
     public class Service1 : IService1
     {
 
-        public List<Annonser> HamtaAllaAnnonser()
+        public List<Annonser> HamtaKopAnnonser(int profilID)
         {
             using (AnnonsModel db = new AnnonsModel())
             {
-                
-                return db.Annonser.ToList();
+                List<Annonser> returAnnonser = new List<Annonser>();
+                foreach (Annonser annons in db.Annonser)
+                {
+                    if (annons.koparID == profilID && annons.status != "Arkiverad")
+                    {
+                        returAnnonser.Add(annons);
+                    }
+                }
+                return returAnnonser;
             }
         }
 
@@ -43,12 +50,36 @@ namespace AnnonsService
                 List<Annonser> returAnnonser = new List<Annonser>();
                 foreach (Annonser annons in db.Annonser)
                 {
-                    if (annons.saljarID == profilID)
+                    if (annons.saljarID == profilID && annons.status != "Arkiverad")
                     {
                         returAnnonser.Add(annons);
                     }
                 }
                 return returAnnonser;
+            }
+        }
+
+        public List<Annonser> HamtaKopAnnonser(int profilID)
+        {
+            using (AnnonsModel db = new AnnonsModel())
+            {
+                List<Annonser> returAnnonser = new List<Annonser>();
+                foreach (Annonser annons in db.Annonser)
+                {
+                    if (annons.koparID == profilID && annons.status != "Arkiverad")
+                    {
+                        returAnnonser.Add(annons);
+                    }
+                }
+                return returAnnonser;
+            }
+        }
+
+        public List<Annonser> HamtaAdminAnnonser()
+        {
+            using (AnnonsModel db = new AnnonsModel())
+            { 
+                return db.Annonser.ToList();
             }
         }
 
@@ -59,7 +90,6 @@ namespace AnnonsService
                 return db.Annonser.Find(annonsID);
             }
         }
-
 
 
         public string Test()
