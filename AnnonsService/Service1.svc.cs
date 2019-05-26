@@ -32,14 +32,24 @@ namespace AnnonsService
         {
             using (AnnonsModel db = new AnnonsModel())
             {
-                System.Diagnostics.Trace.Write(annons.annonsNamn);
-                // You must close or flush the trace to empty the output buffer. 
-                System.Diagnostics.Trace.Flush();
-                db.Annonser.Add(annons);
-                db.SaveChanges();
-                return ("Allt är bra! Tack!");
-            }
-            
+                try
+                {
+                    System.Diagnostics.Trace.Write("Skapar annons: " + annons.annonsNamn);
+                    // You must close or flush the trace to empty the output buffer. 
+                    System.Diagnostics.Trace.Flush();
+
+                    db.Annonser.Add(annons);
+                    db.SaveChanges();
+                    return ("Allt är bra! Tack!");
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.Write(annons.annonsNamn + " kunde inte skapas. Fel: " + e);
+                    // You must close or flush the trace to empty the output buffer. 
+                    System.Diagnostics.Trace.Flush();
+                    return ("Allt är inte bra! Adjö!");
+                }
+            }           
         }
 
         public List<Annonser> HamtaSaljAnnonser(int profilID)
@@ -121,21 +131,30 @@ namespace AnnonsService
             using (AnnonsModel db = new AnnonsModel())
             {
                 var result = db.Annonser.Find(annons.annonsID);
-                if (result != null)
+                try
                 {
-                    //result = annons;
-                    db.Entry(result).CurrentValues.SetValues(annons);
-                    db.SaveChanges();
-                    return ("Annons uppdaterad!");
+                    if (result != null)
+                    {
+                        System.Diagnostics.Trace.Write("Updaterar annons: " + annons.annonsNamn);
+                        System.Diagnostics.Trace.Flush();
 
-                }
-                else
+                        db.Entry(result).CurrentValues.SetValues(annons);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
                     return ("Uppdatering misslyckades");
-
-            }
-
-
-            //return "ASP-FISK";
-        }
+                    }
+                    
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.Write(annons.annonsNamn + " kunde inte uppdateras. Fel: " + e);
+                    System.Diagnostics.Trace.Flush();
+                    //return "ASP-FISK";
+                }
+            }                               
+        }            
     }
 }
+
