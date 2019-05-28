@@ -12,6 +12,7 @@ namespace AnnonsService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
+        //Hämtar alla annonser som inte är arkiverade och lägger till i en lista.
         public List<Annonser> HamtaAllaAnnonser()
         {
             using (AnnonsModel db = new AnnonsModel())
@@ -28,12 +29,14 @@ namespace AnnonsService
             }
         }
 
+        //Skapar ny annons
         public string SkapaAnnons(Annonser annons)
         {
             using (AnnonsModel db = new AnnonsModel())
             {
                 try
                 {
+                    //Loggar varje gång en annons skall skapas.
                     System.Diagnostics.Trace.Write("Skapar annons: " + annons.annonsNamn);
                     // You must close or flush the trace to empty the output buffer. 
                     System.Diagnostics.Trace.Flush();
@@ -44,6 +47,7 @@ namespace AnnonsService
                 }
                 catch (Exception e)
                 {
+                    //Loggar när en annons inte kan skapas.
                     System.Diagnostics.Trace.Write(annons.annonsNamn + " kunde inte skapas. Fel: " + e);
                     // You must close or flush the trace to empty the output buffer. 
                     System.Diagnostics.Trace.Flush();
@@ -51,7 +55,7 @@ namespace AnnonsService
                 }
             }           
         }
-
+        //Hämtar alla annonser av en säljare som inte är arkiverade.
         public List<Annonser> HamtaSaljAnnonser(int profilID)
         {
             using (AnnonsModel db = new AnnonsModel())
@@ -68,6 +72,7 @@ namespace AnnonsService
             }
         }
 
+        //Hämtar alla annonser av en köpare som inte är arkiverade.
         public List<Annonser> HamtaKopAnnonser(int profilID)
         {
             using (AnnonsModel db = new AnnonsModel())
@@ -84,6 +89,7 @@ namespace AnnonsService
             }
         }
 
+        //Hämtar alla annonser oavsett om dessa är arkiverade eller ej. Admin funktionallitet.
         public List<Annonser> HamtaAdminAnnonser()
         {
             using (AnnonsModel db = new AnnonsModel())
@@ -92,6 +98,7 @@ namespace AnnonsService
             }
         }
 
+        //Hämtar en specifik annons med ID som inparameter.
         public Annonser HamtaAnnons(int annonsID)
         {
             using (AnnonsModel db = new AnnonsModel())
@@ -100,7 +107,7 @@ namespace AnnonsService
             }
         }
 
-
+        //Testfunktion
         public string Test()
         {
             using (AnnonsModel db = new AnnonsModel())
@@ -126,16 +133,20 @@ namespace AnnonsService
             return composite;
         }
 
+        //Uppdaterar tabeller i databasen
         public string UppdateraAnnons(Annonser annons)
         {
             using (AnnonsModel db = new AnnonsModel())
             {
+                //Hittar rätt inlägg i databasen
                 var result = db.Annonser.Find(annons.annonsID);
                 try
                 {
                     if (result != null)
                     {
+                        //Loggar varje gång en annons skall uppdateras.
                         System.Diagnostics.Trace.Write("Updaterar annons: " + annons.annonsNamn);
+                        // You must close or flush the trace to empty the output buffer. 
                         System.Diagnostics.Trace.Flush();
 
                         db.Entry(result).CurrentValues.SetValues(annons);
@@ -143,13 +154,15 @@ namespace AnnonsService
                     }
                     else
                     {
-                    return ("Uppdatering misslyckades");
+                        return ("Uppdatering misslyckades");
                     }
                     
                 }
                 catch (Exception e)
                 {
+                    //Loggar varje gång en annons inte lyckas med uppdateringen.
                     System.Diagnostics.Trace.Write(annons.annonsNamn + " kunde inte uppdateras. Fel: " + e);
+                    // You must close or flush the trace to empty the output buffer. 
                     System.Diagnostics.Trace.Flush();
                     //return "ASP-FISK";
                 }
