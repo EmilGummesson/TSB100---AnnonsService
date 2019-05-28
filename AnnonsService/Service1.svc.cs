@@ -80,7 +80,7 @@ namespace AnnonsService
                 List<Annonser> returAnnonser = new List<Annonser>();
                 foreach (Annonser annons in db.Annonser)
                 {
-                    if (annons.koparID == profilID && annons.status != "Arkiverad")
+                    if (annons.koparID == profilID.ToString() && annons.status != "Arkiverad")
                     {
                         returAnnonser.Add(annons);
                     }
@@ -151,12 +151,7 @@ namespace AnnonsService
 
                         db.Entry(result).CurrentValues.SetValues(annons);
                         db.SaveChanges();
-                    }
-                    else
-                    {
-                        return ("Uppdatering misslyckades");
-                    }
-                    
+                    }                   
                 }
                 catch (Exception e)
                 {
@@ -165,8 +160,10 @@ namespace AnnonsService
                     // You must close or flush the trace to empty the output buffer. 
                     System.Diagnostics.Trace.Flush();
                     //return "ASP-FISK";
+                    return ("Uppdatering misslyckades");
                 }
-            }                               
+            }
+            return ("Tack, du är godkänd!");
         }            
     }
 }

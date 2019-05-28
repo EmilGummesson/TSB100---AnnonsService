@@ -33,7 +33,7 @@ namespace AnnonsService
         List<Annonser> HamtaKopAnnonser(int profilID);
 
         [OperationContract]
-        List<Annonser> HamtaAdminAnnonser(int profilID);
+        List<Annonser> HamtaAdminAnnonser();
         
         [OperationContract]
         string UppdateraAnnons(Annonser annons);
